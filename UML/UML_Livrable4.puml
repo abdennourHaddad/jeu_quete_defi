@@ -1,0 +1,251 @@
+@startuml
+class src.mazegame.entity.UnknownPlayerException {
++ <<Create>> UnknownPlayerException(String)
+}
+class src.mazegame.entity.UnknownCharacterException {
++ <<Create>> UnknownCharacterException()
++ <<Create>> UnknownCharacterException(String)
+}
+class src.mazegame.entity.player.Player {
+- String name
+- Cell cell
+- Inventory inventory
+~ int nbGold
++ <<Create>> Player(String)
++ Inventory getInventory()
++ String getName()
++ void setCell(Cell)
++ Cell getCell()
++ int getNbGold()
++ void addNbGold(int)
++ void removeNbGold(int)
++ void move(String)
+- void runThroughWall()
+- void talkTo(Character)
++ void lookAround()
++ void lookInventory()
++ void pickUp(Item)
+}
+class src.mazegame.entity.player.Inventory {
+- Player player
+- List<Item> items
++ <<Create>> Inventory(Player)
++ List<Item> getItems()
++ void addItem(Item)
++ void removeItem(Item)
++ boolean itemIsPresent(Item)
++ boolean itemsAreAllPresent(Collection<Item>)
+}
+class src.mazegame.entity.character.Altruist {
+- {static} String workName
+- String name
+- Parchemin gift
+- Cell cell
+- {static} Random numberGenerator
++ <<Create>> Altruist(String)
++ void move()
++ void interaction(Player)
++ String getWorkName()
++ String getName()
++ T randomDirection(T[])
+}
+enum src.mazegame.entity.character.Direction {
++  E
++  W
++  N
++  S
+}
+class src.mazegame.item.Jewel {
+- {static} String typeName
+- {static} int GOLD
++ <<Create>> Jewel()
++ void use(Player)
++ String getTypeName()
+}
+class src.mazegame.entity.character.Merchant {
+- String workName
+- String name
+- Cell cell
+- Parchemin parchemin
++ <<Create>> Merchant(String)
++ String getName()
++ void setCell(Cell)
+- Direction randomDirection(Direction[])
++ void interaction(Player)
++ String getWorkName()
+}
+enum src.mazegame.entity.character.Direction {
++  E
++  W
++  N
++  S
+}
+class src.mazegame.maze.MazeType3 {
++ <<Create>> MazeType3(int,int)
++ void initMaze()
+}
+class src.mazegame.MazeMain {
+- {static} double DENSITY_CHARACTERS
+- {static} double DENSITY_ITEMS
++ {static} void main(String[])
+}
+abstract class src.mazegame.maze.Maze {
+# int width
+# int height
+# Cell[][] board
++ Cell finalCell
++ <<Create>> Maze(int,int)
++ int getWidth()
++ int getHeight()
++ Cell getCell(int,int)
++ void generateCharacters(double)
++ void generateItems(double)
++ void display()
++ {abstract}void initMaze()
+}
+interface src.mazegame.cell.Cell {
++ boolean getN_Wall()
++ boolean getS_Wall()
++ boolean getE_Wall()
++ boolean getW_Wall()
++ void destroy(Cell,String)
++ int getX()
++ int getY()
++ Maze getMaze()
++ void addPlayer(Player)
++ void removePlayer(Player)
++ boolean containsPlayer(Player)
++ boolean containsCharacter(Character)
++ List<Player> getPlayers()
++ int numberOfPlayers()
++ void setE_Wall(boolean)
++ void setW_Wall(boolean)
++ void setS_Wall(boolean)
++ void setN_Wall(boolean)
++ void removeCharacter(Character)
++ void addCharacter(Character)
++ List<Character> getCharacters()
++ List<Item> getItems()
++ void addItem(Item)
++ void removeItem(Item)
++ int numberOfItems()
++ boolean isFinalCell()
+}
+interface src.mazegame.entity.Character {
++ void interaction(Player)
++ String getWorkName()
++ String getName()
+}
+class src.mazegame.item.Parchemin {
+- {static} String typeName
++ <<Create>> Parchemin()
++ void use(Player)
++ String getTypeName()
+}
+class src.mazegame.entity.wrongValueException {
++ <<Create>> wrongValueException(String)
+}
+class src.mazegame.maze.MazeType1 {
++ <<Create>> MazeType1(int,int)
++ void initMaze()
+}
+abstract class src.mazegame.item.Item {
+# String typeName
++ <<Create>> Item()
++ String getTypeName()
++ {abstract}void use(Player)
+}
+class src.mazegame.entity.character.Sphinx {
+- String workName
+- String name
+- String question
+- String answer
+- Parchemin parchemin
++ <<Create>> Sphinx(String,String,String)
++ String getQuestion()
++ String getAnswer()
++ void interaction(Player)
++ String getWorkName()
++ String getName()
+}
+class src.mazegame.cell.BasicCell {
+- Maze maze
+- int x
+- int y
+- boolean n_wall
+- boolean s_wall
+- boolean e_wall
+- boolean w_wall
+- List<Character> theCharacters
+- List<Player> thePlayers
+- List<Item> theItems
+- boolean finalCell
++ <<Create>> BasicCell(int,int,Maze,boolean)
++ Maze getMaze()
++ int getX()
++ int getY()
++ boolean getN_Wall()
++ boolean getS_Wall()
++ boolean getE_Wall()
++ boolean getW_Wall()
++ void setN_Wall(boolean)
++ void setS_Wall(boolean)
++ void setE_Wall(boolean)
++ void setW_Wall(boolean)
++ void destroy(Cell,String)
++ List<Character> getCharacters()
++ void addCharacter(Character)
++ void removeCharacter(Character)
++ void addPlayer(Player)
++ void removePlayer(Player)
++ boolean containsPlayer(Player)
++ boolean containsCharacter(Character)
++ List<Player> getPlayers()
++ int numberOfCharacters()
++ int numberOfPlayers()
++ List<Item> getItems()
++ void addItem(Item)
++ void removeItem(Item)
++ int numberOfItems()
++ boolean isFinalCell()
++ String toString()
+}
+class src.mazegame.maze.MazeType2 {
++ <<Create>> MazeType2(int,int)
++ void initMaze()
+}
+class src.mazegame.entity.character.Bishop {
+- String workName
+- String name
+- Cell cell
++ <<Create>> Bishop(String)
++ String getName()
++ void setCell(Cell)
++ Cell getCell()
++ void move()
+- Direction randomDirection(Direction[])
++ void interaction(Player)
++ String getWorkName()
+}
+enum src.mazegame.entity.character.Direction {
++  E
++  W
++  N
++  S
+}
+
+
+src.mazegame.entity.Exception <|-- src.mazegame.entity.UnknownPlayerException
+src.mazegame.entity.Throwable <|-- src.mazegame.entity.UnknownCharacterException
+src.mazegame.entity.Character <|.. src.mazegame.entity.character.Altruist
+src.mazegame.item.Item <|-- src.mazegame.item.Jewel
+src.mazegame.entity.Character <|.. src.mazegame.entity.character.Merchant
+src.mazegame.maze.Maze <|-- src.mazegame.maze.MazeType3
+src.mazegame.item.Item <|-- src.mazegame.item.Parchemin
+src.mazegame.entity.Exception <|-- src.mazegame.entity.wrongValueException
+src.mazegame.maze.Maze <|-- src.mazegame.maze.MazeType1
+src.mazegame.entity.Character <|.. src.mazegame.entity.character.Sphinx
+src.mazegame.cell.Cell <|.. src.mazegame.cell.BasicCell
+src.mazegame.maze.Maze <|-- src.mazegame.maze.MazeType2
+src.mazegame.entity.Character <|.. src.mazegame.entity.character.Bishop
+@enduml

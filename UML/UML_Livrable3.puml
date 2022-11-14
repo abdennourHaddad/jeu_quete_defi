@@ -1,0 +1,212 @@
+@startuml
+class src.mazegame.character.player.Inventory {
+- Player player
+- List<Item> items
++ <<Create>> Inventory(Player)
++ List<Item> getItems()
++ void addItem(Item)
++ void removeItem(Item)
+}
+class src.mazegame.character.UnknownPlayerException {
++ <<Create>> UnknownPlayerException(String)
+}
+class src.mazegame.character.Bishop {
+- String name
+- Cell cell
++ <<Create>> Bishop(String)
++ String getName()
++ void setCell(Cell)
++ Cell getCell()
++ void move()
+- Direction randomDirection(Direction[])
++ void interaction(Player)
+}
+enum src.mazegame.character.Direction {
++  E
++  W
++  N
++  S
+}
+interface src.mazegame.character.Character {
++ void move()
++ void interaction(Player)
+}
+class src.mazegame.item.Jewel {
++ <<Create>> Jewel(String)
++ String useItem()
+}
+class src.mazegame.maze.MazeType3 {
++ <<Create>> MazeType3(int,int)
++ void initMaze()
+}
+class src.mazegame.character.Sphynx {
+- String question
+- String answer
+- Parchemin indication
++ <<Create>> Sphynx(String,String,Parchemin)
++ void move()
++ void interaction(Player)
+}
+class src.mazegame.MazeMain {
++ {static} void main(String[])
+}
+abstract class src.mazegame.maze.Maze {
+# int width
+# int height
+# Cell[][] board
++ Cell finalCell
++ <<Create>> Maze(int,int)
++ int getWidth()
++ int getHeight()
++ Cell getCell(int,int)
++ void display()
++ {abstract}void initMaze()
+}
+interface src.mazegame.cell.Cell {
++ boolean getN_Wall()
++ boolean getS_Wall()
++ boolean getE_Wall()
++ boolean getW_Wall()
++ void destroy(Cell,String)
++ int getX()
++ int getY()
++ Maze getMaze()
++ void addPlayer(Player)
++ void removePlayer(Player)
++ List<Player> getPlayers()
++ void setE_Wall(boolean)
++ void setW_Wall(boolean)
++ void setS_Wall(boolean)
++ void setN_Wall(boolean)
++ void removeCharacter(Character)
++ void addCharacter(Character)
++ boolean isFinalCell()
+}
+class src.mazegame.item.Parchemin {
+# String index
+# int distance
++ <<Create>> Parchemin(String,String,int,int,int,int)
++ String getIndice()
++ String useItem()
+}
+class src.mazegame.maze.MazeType1 {
++ <<Create>> MazeType1(int,int)
++ void initMaze()
+}
+class src.mazegame.character.Altruist {
+- Parchemin gift
+- Cell cell
+- {static} Random numberGenerator
++ <<Create>> Altruist(Parchemin)
++ void move()
++ void interaction(Player)
++ T randomDirection(T[])
+}
+enum src.mazegame.character.Direction {
++  E
++  W
++  N
++  S
+}
+class src.mazegame.character.UnknownCharacterException {
++ <<Create>> UnknownCharacterException()
++ <<Create>> UnknownCharacterException(String)
+}
+abstract class src.mazegame.item.Item {
+# String name
+# boolean used
++ <<Create>> Item(String)
++ String getName()
++ boolean isUsed()
++ void setUsed(boolean)
++ {abstract}String useItem()
+}
+class src.mazegame.cell.BasicCell {
+- Maze maze
+- int x
+- int y
+- boolean n_wall
+- boolean s_wall
+- boolean e_wall
+- boolean w_wall
+- List<Character> theCharacters
+- List<Player> thePlayers
+- Item item
+- boolean finalCell
++ <<Create>> BasicCell(int,int,Maze,boolean)
++ Maze getMaze()
++ int getX()
++ int getY()
++ boolean getN_Wall()
++ boolean getS_Wall()
++ boolean getE_Wall()
++ boolean getW_Wall()
++ void setN_Wall(boolean)
++ void setS_Wall(boolean)
++ void setE_Wall(boolean)
++ void setW_Wall(boolean)
++ void destroy(Cell,String)
++ List<Character> getCharacters()
++ void addCharacter(Character)
++ void removeCharacter(Character)
++ void addPlayer(Player)
++ void removePlayer(Player)
++ List<Player> getPlayers()
++ boolean isVisited()
++ int numberOfCharacters()
++ Item getItem()
++ void setItem(Item)
++ String toString()
++ boolean isFinalCell()
+}
+class src.mazegame.character.Merchant {
+- String name
+- Cell cell
++ <<Create>> Merchant(String)
++ String getName()
++ void setCell(Cell)
++ void move()
+- Direction randomDirection(Direction[])
++ void interaction(Player)
+}
+enum src.mazegame.character.Direction {
++  E
++  W
++  N
++  S
+}
+class src.mazegame.character.wrongValueException {
++ <<Create>> wrongValueException(String)
+}
+class src.mazegame.maze.MazeType2 {
++ <<Create>> MazeType2(int,int)
++ void initMaze()
+}
+class src.mazegame.character.player.Player {
+- String name
+- Cell cell
+- Inventory inventory
++ <<Create>> Player(String)
++ Inventory getInventory()
++ String getName()
++ void setCell(Cell)
++ Cell getCell()
++ void move(String)
+- void runThroughWall()
+}
+
+
+src.mazegame.character.Exception <|-- src.mazegame.character.UnknownPlayerException
+src.mazegame.character.Character <|.. src.mazegame.character.Bishop
+src.mazegame.item.Item <|-- src.mazegame.item.Jewel
+src.mazegame.maze.Maze <|-- src.mazegame.maze.MazeType3
+src.mazegame.character.Character <|.. src.mazegame.character.Sphynx
+src.mazegame.item.Item <|-- src.mazegame.item.Parchemin
+src.mazegame.maze.Maze <|-- src.mazegame.maze.MazeType1
+src.mazegame.character.Character <|.. src.mazegame.character.Altruist
+src.mazegame.character.Throwable <|-- src.mazegame.character.UnknownCharacterException
+src.mazegame.cell.Cell <|.. src.mazegame.cell.BasicCell
+src.mazegame.character.Character <|.. src.mazegame.character.Merchant
+src.mazegame.character.Exception <|-- src.mazegame.character.wrongValueException
+src.mazegame.maze.Maze <|-- src.mazegame.maze.MazeType2
+@enduml

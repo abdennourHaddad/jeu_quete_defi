@@ -1,0 +1,106 @@
+@startuml
+class src.mazegame.character.Bishop {
+}
+interface src.mazegame.character.Character {
+}
+class src.mazegame.item.Jewel {
+}
+class src.mazegame.maze.MazeType3 {
++ <<Create>> MazeType3(int,int)
++ void initMaze()
+}
+class src.mazegame.character.Sphynx {
+}
+class src.mazegame.MazeMain {
++ {static} void main(String[])
+}
+abstract class src.mazegame.maze.Maze {
+# int width
+# int height
+# Cell[][] board
++ <<Create>> Maze(int,int)
++ int getWidth()
++ int getHeight()
++ Cell getCell(int,int)
++ void display()
++ {abstract}void initMaze()
+}
+interface src.mazegame.cell.Cell {
++ boolean getN_Wall()
++ boolean getS_Wall()
++ boolean getE_Wall()
++ boolean getW_Wall()
++ void destroy(Cell,String)
++ int getX()
++ int getY()
++ void setE_Wall(boolean)
++ void setW_Wall(boolean)
++ void setS_Wall(boolean)
++ void setN_Wall(boolean)
+}
+class src.mazegame.item.Parchemin {
+}
+class src.mazegame.maze.MazeType1 {
++ <<Create>> MazeType1(int,int)
++ void initMaze()
+}
+class src.mazegame.character.Altruist {
+}
+class src.mazegame.character.UnknownCharacterException {
++ <<Create>> UnknownCharacterException()
++ <<Create>> UnknownCharacterException(String)
+}
+interface src.mazegame.item.Item {
+}
+class src.mazegame.cell.BasicCell {
+- int x
+- int y
+- boolean n_wall
+- boolean s_wall
+- boolean e_wall
+- boolean w_wall
+- List<Character> theCharacters
+- Item item
++ <<Create>> BasicCell(int,int)
++ int getX()
++ int getY()
++ boolean getN_Wall()
++ boolean getS_Wall()
++ boolean getE_Wall()
++ boolean getW_Wall()
++ void setN_Wall(boolean)
++ void setS_Wall(boolean)
++ void setE_Wall(boolean)
++ void setW_Wall(boolean)
++ void destroy(Cell,String)
++ List<Character> getCharacters()
++ void addCharacter(Character)
++ void removeCharacter(Character)
++ boolean isVisited()
++ int numberOfCharacters()
++ Item getItem()
++ void setItem(Item)
++ String toString()
+}
+class src.mazegame.character.Merchant {
+}
+class src.mazegame.maze.MazeType2 {
++ <<Create>> MazeType2(int,int)
++ void initMaze()
+}
+class src.mazegame.character.Player {
+}
+
+
+src.mazegame.character.Character <|.. src.mazegame.character.Bishop
+src.mazegame.item.Item <|.. src.mazegame.item.Jewel
+src.mazegame.maze.Maze <|-- src.mazegame.maze.MazeType3
+src.mazegame.character.Character <|.. src.mazegame.character.Sphynx
+src.mazegame.item.Item <|.. src.mazegame.item.Parchemin
+src.mazegame.maze.Maze <|-- src.mazegame.maze.MazeType1
+src.mazegame.character.Character <|.. src.mazegame.character.Altruist
+src.mazegame.character.Throwable <|-- src.mazegame.character.UnknownCharacterException
+src.mazegame.cell.Cell <|.. src.mazegame.cell.BasicCell
+src.mazegame.character.Character <|.. src.mazegame.character.Merchant
+src.mazegame.maze.Maze <|-- src.mazegame.maze.MazeType2
+@enduml
